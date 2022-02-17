@@ -1,46 +1,54 @@
 import React from "react";
-import { Upload } from "tus-js-client";
-interface Props {}
+import {Upload} from "tus-js-client";
+
+interface Props {
+}
 
 const FileUpload = (props: Props) => {
-  const onFileChange = (e: any) => {
-    console.log(e);
-    var file = e.target.files[0];
-    const upload = new Upload(file, {
-      endpoint: "https://localhost:5001/files",
-      retryDelays: [0, 1000, 3000, 5000],
-      metadata: {
-        filename: file.name,
-        filetype: file.type,
-      },
-      onError: function (error) {
-        console.log("Failed because: " + error);
-      },
-      onProgress: function (bytesUploaded, bytesTotal) {
-        var percentage = ((bytesUploaded / bytesTotal) * 100).toFixed(2);
-        console.log(bytesUploaded, bytesTotal, percentage + "%");
-      },
-      onSuccess: function () {
-        console.log("Download %s from %s", upload.file.name, upload.url);
-      },
-    });
+    const onFileChange = (e: any) => {
+        console.log(e);
+        var file = e.target.files[0];
+        const upload = new Upload(file, {
+            endpoint: "https://cinema-dev-api.shoofnetwork.net/files",
+            // endpoint: "https://www.localhost:5001/files",
+            headers: {"Access-Control-Allow-Origin":"http://www.localhost:3000" },
+            retryDelays: [0, 1000, 3000, 5000],
+            metadata: {
+                filename: file.name,
+                filetype: file.type,
+                showId:"B71E5D49-ACDC-4FA7-B8A8-071C188CE371",
+                resolution:"1080",
+                movieOrEpisodeId:"B71E5D49-ACDC-4FA7-B8A8-071C188CE371",
 
-    // Check if there are any previous uploads to continue.
-    upload.findPreviousUploads().then(function (previousUploads) {
-      // Found previous uploads so we select the first one.
-      if (previousUploads.length) {
-        upload.resumeFromPreviousUpload(previousUploads[0]);
-      }
+            },
+            onError: function (error) {
+                console.log("Failed because: " + error);
+            },
+            onProgress: function (bytesUploaded, bytesTotal) {
+                var percentage = ((bytesUploaded / bytesTotal) * 100).toFixed(2);
+                console.log(bytesUploaded, bytesTotal, percentage + "%");
+            },
+            onSuccess: function () {
+                console.log("Download %s from %s", upload.file.name, upload.url);
+            },
+        });
 
-      // Start the upload
-      upload.start();
-    });
-  };
-  return (
-    <div className="text-center text-2xl p-6">
-      <input type="file" name="file" id="" onChange={onFileChange} />
-    </div>
-  );
+        // Check if there are any previous uploads to continue.
+        upload.findPreviousUploads().then(function (previousUploads) {
+            // Found previous uploads so we select the first one.
+            if (previousUploads.length) {
+                upload.resumeFromPreviousUpload(previousUploads[0]);
+            }
+
+            // Start the upload
+            upload.start();
+        });
+    };
+    return (
+        <div className="text-center text-2xl p-6">
+            <input type="file" name="file" id="" onChange={onFileChange}/>
+        </div>
+    );
 };
 
 export default FileUpload;

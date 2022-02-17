@@ -7,4 +7,7 @@
 
   <PackageReference Include="tusdotnet" Version="2.4.0" />
   </ItemGroup>
+    <ItemGroup>
+      <Folder Include="wwwroot\tusfiles" />
+    </ItemGroup>
 </Project>
