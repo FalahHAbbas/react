@@ -16,10 +16,9 @@ const FileUpload = (props: Props) => {
             metadata: {
                 filename: file.name,
                 filetype: file.type,
-                showId:"B71E5D49-ACDC-4FA7-B8A8-071C188CE371",
-                resolution:"1080",
-                movieOrEpisodeId:"B71E5D49-ACDC-4FA7-B8A8-071C188CE371",
-
+                resolution:"1440",
+                movieOrEpisodeId:"c7f252c7-4fcf-4759-8541-2068e2d38e77",
+                isMovie: "true"
             },
             onError: function (error) {
                 console.log("Failed because: " + error);
