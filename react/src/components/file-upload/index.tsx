@@ -9,15 +9,15 @@ const FileUpload = (props: Props) => {
         console.log(e);
         var file = e.target.files[0];
         const upload = new Upload(file, {
-            endpoint: "https://cinema-dev-api.shoofnetwork.net/files",
-            // endpoint: "https://www.localhost:5001/files",
+            endpoint: "http://cinema-dev-api.shoofnetwork.net/files",
+            // endpoint: "http://www.localhost:5000/files",
             headers: {"Access-Control-Allow-Origin":"http://www.localhost:3000" },
             retryDelays: [0, 1000, 3000, 5000],
             metadata: {
                 filename: file.name,
                 filetype: file.type,
                 resolution:"1440",
-                movieOrEpisodeId:"c7f252c7-4fcf-4759-8541-2068e2d38e77",
+                movieOrEpisodeId:"57f6ce4b-e557-425e-8da6-9c4fac9f6770",
                 isMovie: "true"
             },
             onError: function (error) {
